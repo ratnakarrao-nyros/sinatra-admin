@@ -1,0 +1,419 @@
+<html>
+<head>
+<title>Sinatra Admin</title>
+ 	<link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="css/docs.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	
+
+<script src="js/jquery-1.7.1.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/jquery.fancybox-1.3.4.pack.js"></script>
+
+<script type="text/javascript">
+	$('document').ready(function(){
+	$('.addnew,.hstry,.exprt').click(function(){		
+	$('.fltr').hide();		
+	});
+
+	$('#arrow1').click(function(){		
+	$(".first").slideToggle('slow');
+	$(".first").toggleClass("act");
+	if($(".first").hasClass("act")){
+	$(".first").attr("style", "display:block");
+	$('.arrow1').attr("class","icon-chevron-down arrow1");	
+	}else{
+	$(".first").attr("style", "display:none");
+	$('.arrow1').attr("class","icon-chevron-right arrow1");	
+	}				
+	});
+
+	$('#arrow2').click(function(){		
+	$(".scnd").slideToggle('slow');
+	$(".scnd").toggleClass("act");
+	if($(".scnd").hasClass("act")){
+	$(".scnd").attr("style", "display:block");
+	$('.arrow2').attr("class","icon-chevron-down arrow2");	
+	}else{
+	$(".scnd").attr("style", "display:none");
+	$('.arrow2').attr("class","icon-chevron-right arrow2");	
+	}				
+	});
+
+	$('.addnew').click(function(){
+		$.get('/addnewdivision',function(data){
+			$("#addnew").html(data);
+		});
+
+	});
+
+	$('.list').click(function(){		
+		$('.fltr').show();
+		$.get('/getdivisions',function(data){		
+		});		
+	});
+
+	$('.list,.addnew,.exprt,.hstry').click(function(){
+	     if($(this).attr("class")=='list'){
+		$('.act').text('List');	
+		$('.page-header h2').text('List of Comm');	
+		}
+	     else if($(this).attr("class")=='addnew'){
+		$('.act').text('New');	
+		$('.page-header h2').text('New Comments');	
+		}
+	     else if($(this).attr("class")=='exprt'){
+		$('.act').text('Export');
+		$('.page-header h2').text('Export Comments');			
+		}
+	     else if($(this).attr("class")=='hstry'){
+		$('.act').text('History');
+		$('.page-header h2').text('History For Comments');			
+		}		
+	});
+
+	
+
+})
+	
+</script>
+
+</head>
+
+
+<body>
+ <div id="main">
+     	 <!--------------- HEADER PART STARTS HERE  --------------------------------->	
+		<%= erb :header , :layout =>false %>
+ 
+ 	 <!---------  HEADER PART ENDS HERE  	-------------------------------------->
+
+ <!---------  	Content PART  HERE  	-------------------------------------->
+
+	<div class="bcontent">
+		<div class="container-fluid">
+		<div class="row-fluid">
+		<div class="span3">
+		<%= erb :sidebar_tablist, :layout => false %>
+		</div><!--span3 -->
+	
+		
+		<div class="span9">
+		<div class="row-fluid">
+		<div class="content">
+		<div class="page-header"><h2>Site Administration</h2></div>
+		<ul class="breadcrumb">
+		<li class=""><a class="#" href="/dboard_home">Dashboard</a></li>
+		<span class="divider">/</span>
+		<li class=""><a class="" href="#">Basic pages</a></li>
+		<span class="divider">/</span>
+		<li class="active"><a class="" href="#">History</a>
+		</li>
+		</ul>
+		<ul class="nav nav-tabs">
+		<li class="icon">
+		<a class="list" href="#home" data-toggle="tab"><i class="icon-th-list"></i><span>List</span></a>
+		</li>
+		<li class="icon ">
+		<a class="addnew" href="#addnew" data-toggle="tab"><i class="icon-plus"></i><span>Add new</span></a>
+		</li>
+		<li class="icon" >
+		<a class=" exprt" href="#dropdown1" data-toggle="tab"><i class="icon-share"></i><span>Export</span></a>
+		</li>
+		<li class="icon">
+		<a class="hstry" href="#dropdown2" data-toggle="tab"><i class="icon-book"></i><span>History</span></a>
+		</li>
+		
+		<li class="dropdown hide fltr" style="float:right" >
+		<a class="dropdown-toggle" href="#" data-toggle="dropdown">Selected items<b class="caret"></b></a>
+		<ul class="dropdown-menu" style="left:auto; right:0;">
+		<li>
+		<a href="#">Export selected Balls</a>
+		</li>
+		<li>
+		<a  href="#">Delete selected Balls</a>
+		</li>
+		</ul>
+		</li>
+
+		<li class="dropdown hide fltr" style="float:right">
+		<a class="dropdown-toggle" href="#" data-toggle="dropdown">Add filter<b class="caret"></b></a>
+		<ul id="filters" class="dropdown-menu tablist" style="left:auto; right:0;" >
+		<li>
+		<a href="#">Id</a>
+		</li>
+		<li>
+		<a href="#">Color</a>
+		</li>
+		<li>
+		<a href="#">Created at</a>
+		</li>
+		</ul>
+		</li>
+		</ul>
+		
+		
+<div id="myTabContent" class="tab-content">
+           
+	<!--Displaying  All Balls from  Database --> 
+	 <div class="tab-pane fade in active" id="home">
+<form class="search pjax-form form-inline" method="get" action="#" accept-charset="UTF-8">
+		<div class="well">
+		<input class="input-small" type="search" placeholder="Filter" name="query">
+		<button class="btn btn-primary" type="submit" data-disable-with="<i class='icon-white icon-refresh'></i> Refresh">
+		<i class="icon-white icon-refresh"></i>
+		Refresh
+		</button>
+		</div>
+</form>
+           
+<div id="succ"></div>
+
+<table class="table table-condensed table-striped">
+	<thead>
+	<tr>
+	<th class="shrink">
+	<input class="toggle" type="checkbox">
+	</th>
+	<th class="header headerSortDown id_field integer_type" data-href="/admin/ball?sort=id&sort_reverse=true">Id</th>
+	<th class="header " data-href="#">Commentable</th>
+	<th class="header " data-href="#">Content</th>
+	<th class="header created_at_field datetime_type" data-href="#">Created at</th>
+	<th class="header updated_at_field datetime_type" data-href="#">Updated at</th>
+	<th class="last shrink"></th>
+	</tr>
+	</thead>
+	<tbody>
+	<% if session[:getdivision].length>0  %>
+	<% session[:getcomments].each  do |comment| %>	
+	<tr>
+	<td>
+	<input id="" type="checkbox" value="41" name="bulk_ids[]">
+	</td>
+	<td class="" title=""><%=comment.id%></td>
+	<td class="" title=""><%=comment.commentable%></td>
+	<td class="" title=""><%=comment.content%></td>
+	<td class="" title="">
+	<%=comment.created_at%></td>
+	<td class="" title="">
+	<%=comment.updated_at%></td>
+	<td class="last links">
+	<ul class="inline">
+	<li class="icon show_member_link " rel="tooltip" title="Show">
+	<a class="" href="ball/41">
+	<i class="icon-info-sign"></i>
+	<span style="display:none">Show</span>
+	</a>
+	</li>
+	<li class="icon edit_member_link " rel="tooltip" title="Edit">
+	<a class="pjax" href="ball/41/edit">
+	<i class="icon-pencil"></i>
+	<span style="display:none">Edit</span>
+	</a>
+	</li>
+	<li class="icon delete_member_link " rel="tooltip" title="Delete">
+	<a class="pjax" href="ball/41/delete">
+	<i class="icon-remove"></i>
+	<span style="display:none">Delete</span>
+	</a>
+	</li>
+	<li class="icon history_show_member_link " rel="tooltip" title="History">
+	<a class="pjax" href="ball/41/history">
+	<i class="icon-book"></i>
+	<span style="display:none">History</span>
+	</a>
+	</li>
+	</ul>
+	</td>
+	</tr>
+	<%end %>
+	<%end%>
+	</tbody>
+</table>
+ </div>
+
+
+
+
+        
+	<!--Add New Comment to Database --> 
+          <div class="tab-pane fade" id="addnew">
+           
+	
+
+
+   
+          </div>
+
+
+
+
+
+	<!--Exporting  Balls to CSV file--> 
+
+            <div class="tab-pane fade" id="dropdown1">
+
+		<form class="form-horizontal denser" method="post" action=""">
+		<fieldset >
+		<legend id="arrow1">
+		<i class="icon-chevron-right arrow1"></i>
+		Select fields to export
+		</legend>
+		<div class="control-group first" style="display:none">
+		<label class="control-label" rel="tooltip">Fields from teams</label>
+		<div class="controls">
+		</div>
+		</fieldset>
+		<fieldset>
+		<legend id="arrow2">
+		<i class="icon-chevron-right arrow2" ></i>
+		Options for csv
+		</legend>
+		<div class="scnd" style="display:none">
+		<div class="control-group" >
+		<label class="control-label">Encode to</label>
+		<div class="controls">
+		<select id="csv_options_encoding_to" name="csv_options[encoding_to]">
+		<option value=""></option>
+		</select>
+		<p class="help-block">Choose output encoding. Leave empty to let current input encoding untouched: (UTF-8)</p>
+		</div>
+		</div>
+		<div class="control-group">
+		<label class="control-label" for="csv_options_skip_header">No header</label>
+		<div class="controls">
+		<input id="csv_options_skip_header" type="checkbox" value="true">
+		<p class="help-block">Do not output a header (no fields description)</p>
+		</div>
+		</div>
+		<div class="control-group">
+		<label class="control-label" for="csv_options_generator_col_sep">Column separator</label>
+		<div class="controls">
+		<select id="csv_options_generator_col_sep" name="csv_options[generator][col_sep]">
+		<option value=","></option>
+		<option value=",">&lt;comma&gt; ','</option>
+		<option value=";">&lt;semicolon&gt; ';'</option>
+		<option value="' '">&lt;tabs&gt;</option>
+		</select>
+		<p class="help-block">Leave blank for default (',')</p>
+		</div>
+		</div>
+		</div>
+		</fieldset>
+
+		<div class="form-actions">
+		<button class="btn btn-primary" type="submit" name="csv">
+		<i class="icon-white icon-ok"></i>
+		Export to csv
+		</button>
+		<button class="btn btn-info" type="submit" name="json"> Export to json </button>
+		<button class="btn btn-info" type="submit" name="xml"> Export to xml </button>
+		<button class="btn" type="submit" name="_continue">
+		<i class="icon-remove"></i>
+		Cancel
+		</button>
+		</div>
+</form>
+ </div>
+           
+
+	<!--History of Balls Table --> 
+
+ <div class="tab-pane fade" id="dropdown2">
+              <form class="search pjax-form form-inline" method="get" action="#" accept-charset="UTF-8">
+		<div style="margin:0;padding:0;display:inline">
+		<input type="hidden" value="✓" name="utf8">
+		</div>
+		<div class="well">
+		<input class="input-small" type="search" placeholder="Filter" name="query">
+		<button class="btn btn-primary" type="submit" data-disable-with="<i class='icon-white icon-refresh'></i> Refresh">
+		<i class="icon-white icon-refresh"></i>
+		Refresh
+		</button>
+		</div>
+		</form>
+ </div>
+
+</div><!--mytabcontent-->
+
+
+
+	<div class="pagination">
+	<a class="show-all btn pjax" href="/admin/cms~basic_page/history?all=true">Show all</a>
+	</div><!--pagination-->
+	</div><!--content-->
+	</div><!--rowfluid-->
+	</div><!--span9-->
+	</div>		
+
+ <!---------  Content PART ENDS HERE  	-------------------------------------->  
+  <!-----------  FANCY BOX CONTENT  ------------------------------------->
+
+
+	<div style="display: none;">
+	<div id="signup" style="width:400px;overflow:auto;">
+		
+		<h3> Sign in </h3>
+		<div class="signupform">
+		<p>You must have an account in order to login</p>
+		<form action="/adminlogin" method="post">
+			<p>
+				<label for="uname"  class="left">User Name</label>
+				<input name="uname" type="text" class="required "/>
+			</p>
+			<p class="clear"></p>
+			<p id="pwd">
+				<label for="password"  class="left"> Password</label>
+				<input name="password" type="password" class="required"/>
+			</p>
+			<p id="cpwd" style="display:none">
+				<label for="cpassword"  class="left"> Confirm Password</label>
+				<input name="cpassword" type="password" class="required"/>
+			</p>
+			<p id="email" style="display:none">
+				<label for="mail"  class="left"> Email</label>
+				<input name="mail" type="text" class="required"/>
+			</p>
+			<p><a href="#frget" id="forget">Forget your password ?</a></p>
+			<p><a href="#" id="noac">Don't yet have an account ?</a></p>
+			<p>
+				<input type="submit" class="btn" value="submit"/>
+			</p>
+		</form>
+		</div>
+	</div>
+	</div>
+
+</div><!--main-->
+
+
+		<div style="text-align:center">
+		<footer>
+		<p> &copy; SinatraAdmin 2012</p>
+		</footer>
+		</div><!--rowfluid -->
+		</div><!--container fluid -->
+		</div>
+
+		
+	<!-- Bootstrap js files -->
+	 <script src="js/jquery.js"></script>
+	    <script src="js/google-code-prettify/prettify.js"></script>
+	    <script src="js/bootstrap-transition.js"></script>
+	    <script src="js/bootstrap-alert.js"></script>
+	    <script src="js/bootstrap-modal.js"></script>
+	    <script src="js/bootstrap-dropdown.js"></script>
+	    <script src="js/bootstrap-scrollspy.js"></script>
+	    <script src="js/bootstrap-tab.js"></script>
+	    <script src="js/bootstrap-tooltip.js"></script>
+	    <script src="js/bootstrap-popover.js"></script>
+	    <script src="js/bootstrap-button.js"></script>
+	    <script src="js/bootstrap-collapse.js"></script>
+	    <script src="js/bootstrap-carousel.js"></script>
+	    <script src="js/bootstrap-typeahead.js"></script>
+	    <script src="js/application.js"></script>
+
+
+
+</body>
+</html>

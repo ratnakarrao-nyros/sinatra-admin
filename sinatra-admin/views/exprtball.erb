@@ -1,0 +1,17 @@
+<% require 'rubygems'
+require 'nokogiri'
+require 'csv'
+
+def main(f)
+  Nokogiri::HTML.parse(open(f)).search('table').each do |t|
+    t.search('tr').each do |tr|
+      puts CSV.generate_line(tr.xpath('th|td').collect do |td|
+        td.text
+      end)
+    end
+    puts
+  end
+end
+
+ARGV.each { main('addnew.csv') } 
+ %>

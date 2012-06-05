@@ -1,0 +1,464 @@
+<html>
+<head>
+<title>Sinatra Admin</title>
+ 	<link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="css/docs.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	<link href="css/datepicker.css" rel="stylesheet">
+	
+	
+
+<script src="js/jquery-1.7.1.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/jquery.fancybox-1.3.4.pack.js"></script>
+<script type="text/javascript">
+	$('document').ready(function(){
+	$('.addnew,.hstry,.exprt').click(function(){		
+	$('.fltr').hide();		
+	});
+		var cnt=0;
+		$('#tabbed_menu li').each(function(){
+			});
+
+
+	$('#arrow1').click(function(){		
+	$(".first").slideToggle('slow');
+	$(".first").toggleClass("act");
+	if($(".first").hasClass("act")){
+	$(".first").attr("style", "display:block");
+	$('.arrow1').attr("class","icon-chevron-down arrow1");	
+	}else{
+	$(".first").attr("style", "display:none");
+	$('.arrow1').attr("class","icon-chevron-right arrow1");	
+	}				
+	});
+
+	$('#arrow2').click(function(){		
+	$(".scnd").slideToggle('slow');
+	$(".scnd").toggleClass("act");
+	if($(".scnd").hasClass("act")){
+	$(".scnd").attr("style", "display:block");
+	$('.arrow2').attr("class","icon-chevron-down arrow2");	
+	}else{
+	$(".scnd").attr("style", "display:none");
+	$('.arrow2').attr("class","icon-chevron-right arrow2");	
+	}				
+	});
+	
+	/* ajax call for inserting data */ 
+	
+	$('.addnew').click(function(){
+		var tab=$(this).attr("table-name");
+		$.get('/addnew?table='+tab,function(data){
+			$("#addnew").html(data);
+		});
+
+	});
+	
+	/* ajax call for fetching data */ 
+	$('.list').click(function(){				
+		$('.fltr').show();
+		$.get('/getballs',function(data){
+				
+		});		
+	});
+
+
+	$('.hstry').click(function(){
+		var tab=$(this).attr("table-name");	
+		$.get('/gethistories?name='+tab,function(data){
+		$("#hist").html(data);		
+		});		
+		
+	});
+
+
+	/*$('.last_links_show').click(function(event){
+			event.preventDefault();
+		$.get('/show',function(data){
+			$('.span9').html(data);});		
+	
+	}); */
+
+
+	/* for changing bredcrumb details ana page headers Dynamically ..*/
+
+	$('.list,.addnew,.exprt,.hstry').click(function(){
+	     if($(this).attr("class")=='list'){
+		$('.act').text('List');	
+		$('.page-header h2').text('List Of Balls');	
+		}
+	     else if($(this).attr("class")=='addnew'){
+		$('.act').text('New');	
+		$('.page-header h2').text('New Balls');	
+		}
+	     else if($(this).attr("class")=='exprt'){
+		$('.act').text('Export');
+		$('.page-header h2').text('Export Balls');			
+		}
+	     else if($(this).attr("class")=='hstry'){
+		$('.act').text('History');
+		$('.page-header h2').text('History For Balls');			
+		}		
+	});
+	
+	
+	
+	$('.exportbtn').click(function(event){
+			$btn=$(this);
+			if($btn.attr('name')=='csv'){
+			$("#csvform").attr("action","/getcsv");}
+			else if($btn.attr('name')=='xml'){
+			$("#csvform").attr("action","/getxml");}
+			else if($btn.attr('name')=='json'){
+			$("#csvform").attr("action","/getjson");}
+	});
+	$('#dp1').datepicker({
+				format: 'mm-dd-yyyy'
+			});
+	$('#dp2').datepicker();
+
+	
+	// For Filters .........
+
+
+	$('#filters li').click(function(){
+		var me=$(this);
+		$id_val=me.attr("id");
+		$('.'+$id_val).addClass("custom");		
+		$('.'+$id_val).show();
+	});	
+		
+	$('#filters_box p a').click(function(){$(this).parent().css("display","none");})
+	
+	// To Dynamically activate tabs
+	$(window).load(function () {
+  		$('.hello').each(function(){
+		var me=$(this);
+			if (me.attr("mydata")==me.attr("data")){
+				$('#home').removeClass('active');
+				me.trigger('click');}		
+		});
+		});
+	if($("#home").attr("main")=='active'){
+		    $("#home").addClass("active");		
+		}
+
+})
+	
+</script>
+
+</head>
+
+<body>
+ 
+<div id="main">
+  <!--------------- HEADER PART STARTS HERE  --------------------------------->	
+		<%= erb :header , :layout =>false %>
+ 
+  <!---------  HEADER PART ENDS HERE  	-------------------------------------->
+ 
+  		
+  <!---------  	Content  -------------------->
+
+	<div class="bcontent">
+		<div class="container-fluid">
+			<div class="row-fluid">
+		
+			<!-- sidebar -->
+				<div class="span3">
+					<%= erb :sidebar_tablist, :layout => false %>
+				</div><!--span3 -->
+	
+			<!--right part -->
+		<div class="span9">
+		<div class="row-fluid">
+		<div class="content">
+		
+			<div class="page-header">
+				<h2>List Of <span style="text-transform:capitalize"><%=@tab_name%></span></h2>
+			</div>
+			<div class="search_alert alert-error" style="display:none">
+				<a class="close" href="#">×</a>
+				Please Enter Search key
+			</div>
+				<ul class="breadcrumb">
+					<li class="">
+						<a class="#" href="/dboard_home">Dashboard</a>
+					</li>
+						<span class="divider">/</span>
+					<li class="">
+						<a class="" href="/tables?main=active&tab_name=<%=@tab_name%>&name=tabbed_list">
+						<span style="text-transform:capitalize"><%=@tab_name%>
+						</a>
+					</li>
+						<span class="divider">/</span>
+					<li class="active">
+						<a class="act" href="#"></a>
+					</li>
+				</ul>
+				<ul class="nav nav-tabs" id="tabbed_menu">
+					<li class="icon">
+						<a class="list hello"  data="tabbed_list" href="#home" data-toggle="tab" mydata="<%=@active%>" >
+						<i class="icon-th-list"></i>
+						<span>List</span></a>
+					</li>
+					<li class="icon">
+						<a class="addnew hello" data="tabbed_new" href="#addnew" data-toggle="tab" mydata="<%=@active%>" 
+				table-name="<%=@tab_name%>">
+						<i class="icon-plus"></i>
+						<span>Add new</span></a>
+					</li>
+					<li class="icon" >
+						<a class="exprt hello"  data="tabbed_exprt" href="#dropdown1" data-toggle="tab" mydata="<%=@active%>">
+						<i class="icon-share"></i>
+						<span>Export</span></a>
+					</li>
+					<li class="icon ">
+						<a class="hstry hello" data="tabbed_hstry" href="#dropdown2" data-toggle="tab" mydata="<%=@active%>" table-name="<%=@tab_name%>">
+						<i class="icon-book"></i>
+						<span>History</span></a>
+					</li>
+		
+	
+					<li class="dropdown hide fltr" style="float:right">
+						<a class="dropdown-toggle" href="#" data-toggle="dropdown">
+							Add filter<b class="caret"></b>
+						</a>
+						<ul id="filters" class="dropdown-menu tablist" style="left:auto; right:0;" >
+							<% @column_arr[0..3].each do |val|%>	
+							<li id="<%=@tab_name%>_<%=val%>">
+								<a href="#"  class="filters"><%=val%></a>
+							</li>		
+							<% end %>		
+						</ul>
+					</li>
+				</ul>
+		
+		
+			<div id="myTabContent" class="tab-content">
+			 	<div class="tab-pane" id="home" main="<%=@main%>" status="<%=@status%>">
+				 	<form class="search form-inline" id="filter_search" method="post" action="/filterball">
+					 	<div class="well">
+							<span id="filters_box">
+								<% @column_arr[0..3].each do |val| %>
+									<p class="hide <%=@tab_name%>_<%=val%> delete">
+									<a  href="#" class="label label-info">
+									<i class="icon-trash icon-white"></i><%=val%></a>
+									<input class="input-small" type="text" value="" name="<%=val%>" style="margin-left:10px">
+									</p>
+								<% end %>
+							</span>	
+							<hr style="display: block;">
+							<input type="hidden" name="tab_name" value="<%=@tab_name%>"> 
+							<input class="input-small" type="search" id="searchqry" value="" placeholder="Filter" name="query">
+							<button class="btn btn-primary searchqry" type="submit" id="filter"></i>
+								<i class="icon-white icon-refresh"></i>
+								Refresh
+							</button>
+						<!--	<span style="float:right">
+								<a class="btn btn-info" href="#">Export found Balls</a>
+							</span>
+						-->
+						</div>
+					</form>
+
+				<!--Displaying Records from  Database --> 
+					
+					<table class="table table-condensed table-striped">
+						<thead>
+							<tr>
+								<th class="shrink">
+								<input class="toggle" type="checkbox">
+								</th>
+								<% @column_arr[0..3].each do |val|%>	
+								<th class="header" style="text-transform:capitalize">
+								<%=val %></th>
+								<%end %>
+								<th class="last shrink"></th>
+							</tr>
+						</thead>
+
+					<tbody>
+						<% if !@paginate.blank? %>
+						<% @paginate.each  do |item| %>
+							<tr>
+								<td>
+									<input id="" type="checkbox" value="" name="">
+								</td>
+									<% item.attributes.each do |attr_name,attr_value| 
+									if attr_name=="created_at" or attr_name=="updated_at" %>		
+								<td class="">
+									<%=attr_value.strftime("%m-%d-%y")%></td>
+									<%else%>
+								<td class="">
+									<%=attr_value%>
+								</td>	
+									<% end %>
+									<%end%>
+								<td class="last links">
+									<ul class="inline">
+										<li class="icon" rel="tooltip" title="Show">
+										<a class="last_links_show" href="/show?id=<%=item.id%>&tab_name=<%=@tab_name%>">
+										<i class="icon-info-sign"></i></a>
+										</li>
+										<li class="icon" rel="tooltip" title="Edit">
+										<a class="last_links_edit" href="/edit?id=<%=item.id%>&tab_name=<%=@tab_name%>">
+										<i class="icon-pencil"></i></a>		
+										</li>
+
+										<li class="icon" rel="tooltip" title="Delete">
+										<a class="last_links_delete" href="/delete?id=<%=item.id%>&tab_name=<%=@tab_name%>">
+										<i class="icon-remove"></i></a>		
+										</li>
+
+										<li class="icon history_show_member_link " rel="tooltip" title="History">
+										<a class="last_links_history" href="/history?id=<%=item.id%>&tab_name=<%=@tab_name%>&item=<%=@item%>">
+										<i class="icon-book"></i></a>		
+										</li>
+
+									</ul>
+								</td>
+							</tr>
+						<%end%>
+						<%else %>
+						<span style="color:red"> No Records Found </span>
+				 		<%end%>
+					</tbody>
+					</table>
+
+					<div class="digg_pagination">
+				    		<div clas="page_info">
+							 <% if !@paginate.blank? %>
+					     		 <%= page_entries_info @paginate %>
+				   		</div>
+							 <%= will_paginate @paginate, :renderer => BootstrapPagination::Sinatra %>
+							 <% end %>  		
+					</div>	
+			
+			<!-- End Of Displayin Record ----->
+			 </div>
+		<!-- End Of Home ----->
+			<div style="clear:both"></div>
+		
+		<!--Add New Ball to Database --> 
+			  <div class="tab-pane fade" id="addnew">
+			   
+
+			  </div>	
+			<div style="clear:both"></div>
+	
+		<!--Exporting  to CSV file--> 
+
+		    <div class="tab-pane fade" id="dropdown1">
+
+			<form class="form-horizontal" id="csvform" method="post" action="">
+		
+
+				<fieldset >
+					<legend id="arrow1">
+						<i class="icon-chevron-right arrow1"></i>
+						Select fields to export
+					</legend>
+					<div class="control-group first" style="display:none">
+						<label class="control-label" rel="tooltip" onclick="">
+							Fields from balls
+						</label>
+					<div class="controls">
+						<% @column_arr.each do |val|%>	
+						<label class="checkbox">
+						<input type="checkbox" value="<%=val%>" name="extern_file[<%=val%>]" checked="checked">
+						<%=val %>
+						</label>
+						<%end %>
+					<input type="hidden" value="<%=@tab_name%>" name="tab_name">
+					</div>
+				</fieldset>
+		
+		
+				<!-- <fieldset>
+				<%= erb :csvoptions ,:layout => false %>	
+		
+				</fieldset> -->
+		 		
+				<div class="form-actions">
+					<button class="btn btn-primary exportbtn" type="submit" name="csv">
+						<i class="icon-white icon-ok"></i>
+						Export to csv
+					</button>
+					<button class="btn btn-info exportbtn" type="submit" name="json"> 
+						Export to json </button>
+					<button class="btn btn-info exportbtn" type="submit" name="xml"> 
+						Export to xml </button>
+					<button class="btn"  name="_continue" type="">
+						<i class="icon-remove"></i>
+						Cancel
+					</button>
+				</div>
+			</form>
+		</div>
+		<!-- End Of Exporting Content --> 
+			<div style="clear:both"></div>
+		<!--History of Balls Table --> 
+
+	 		<div class="tab-pane fade" id="dropdown2">
+				<form class="search form-inline" method="get" action="#">
+					<div style="margin:0;padding:0;display:inline">
+						<input type="hidden" value="" name="">
+					</div>
+					<div class="well">
+						<input class="input-small" type="search" placeholder="Filter" name="query">
+		
+						<button class="btn btn-primary" type="submit">
+							<i class="icon-white icon-refresh"></i>
+							Refresh
+						</button>
+					</div>
+				</form>
+
+				<div id="hist">
+				</div>
+	 		</div>
+
+	</div><!--mytabcontent-->
+
+
+
+		</div><!--content-->
+		</div><!--rowfluid-->
+		</div><!--span9-->
+		
+		 <!---------  	Right Part Ends Here  	-------------------------------------->  
+  		 <!-----------  FANCY BOX CONTENT  ------------------------------------->
+
+	<div style="text-align:center">
+	<footer>
+	<p> &copy; SinatraAdmin 2012</p>
+	</footer>
+	</div><!--rowfluid -->
+	</div><!--container fluid -->
+	</div><!--main -->
+
+		
+	<!-- Bootstrap js files -->
+	    <script src="js/jquery.js"></script>
+	    <script src="js/google-code-prettify/prettify.js"></script>
+	    <script src="js/bootstrap-transition.js"></script>
+	    <script src="js/bootstrap-alert.js"></script>
+	    <script src="js/bootstrap-modal.js"></script>
+	    <script src="js/bootstrap-dropdown.js"></script>
+	    <script src="js/bootstrap-scrollspy.js"></script>
+	    <script src="js/bootstrap-tab.js"></script>
+	    <script src="js/bootstrap-tooltip.js"></script>
+	    <script src="js/bootstrap-popover.js"></script>
+	    <script src="js/bootstrap-button.js"></script>
+	    <script src="js/bootstrap-collapse.js"></script>
+	    <script src="js/bootstrap-carousel.js"></script>
+	    <script src="js/bootstrap-typeahead.js"></script>
+	    <script src="js/application.js"></script>
+	    <script src="js/bootstrap-datepicker.js"></script>
+	    
+		
+
+</body>
+</html>

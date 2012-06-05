@@ -1,0 +1,23 @@
+
+test:
+  adapter: mysql
+  encoding: utf8
+  database: sinatraadmin
+
+production: 
+  adapter: mysql
+  encoding: utf8
+  username: root
+  password: root
+  database: sinatraadmin
+
+development:
+    adapter: mysql
+    encoding: utf8
+    database: sinatraadmin
+    username: root
+    password: root
+    host: localhost
+    port: 3306
+    reconnect: true
+ 

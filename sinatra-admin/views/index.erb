@@ -1,0 +1,179 @@
+<html>
+<head>
+<title>Sinatra Admin</title>
+ 	<link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="css/docs.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	
+
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.fancybox-1.3.4.pack.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+	
+	//for fancybox effect.........
+	$("#new").fancybox({	
+			'titlePosition'		: 'inside',
+			'transitionIn'		: '1000',
+			'transitionOut'		: '1000'
+	}).trigger('click');
+	//trigger function is used for loading facncy box when the page is loaded	
+
+
+
+	//hiding the signup and reset password hyperlinks
+	
+	$("#signup #signupform #links .register").addClass("hide");
+	$("#signup #signupform #links .reset").addClass("hide");
+	
+	
+	//for "forgetpassword" hyperlink sliding
+	$("#forget").click(function(){
+			$("#pwd").slideToggle();
+			$("#noac,.reset,.signin").toggleClass("hide");
+			if($("#noac").hasClass("hide")){
+			$("#forget").text("Never mind I rememberd it ");
+			$("#signup h3").text("Reset Password");
+	$("#signup #signupform #links .reset").text("Reset Password");}
+			else{$("#forget").text("Forget your password ?");
+			$("#signup h3").text("Sign in");
+	$("#signup #signupform #links .signin").text("Sign in");			
+			}});
+	
+	//for "dont have account"  hyperlink  sliding
+			
+			$("#noac").click(function(){ 
+				$("#cpwd").slideToggle();
+				$("#forget ,.register,.signin").toggleClass("hide");
+				if($("#forget").hasClass("hide")){
+				$("#noac").text("Never mind i have an account");
+				$("#signup h3").text("Sign up")
+	$("#signup #signupform #links .register").text("Sign up");	
+				}
+				else{$("#noac").text("Dont yet have an account?");
+				$("#signup h3").text("Sign in");
+	$("#signup #signupform #links .signin").text("Sign in");
+			}});
+			
+	//validation support
+	// required field validations
+	
+	$('#signupform input').blur(function()
+	{
+    		if( !$(this).val() ) {
+          	$(".req").slideDown();}
+		else{$(".req").slideUp();}
+	});
+
+
+	//form submission validations 
+	//for sign in,sign up ,reset  
+	$('.signin,.reset').click(function(event) {
+	var name=$(this).attr('class');
+	  		if( !$("#email_field").val() ){
+		  		$(".error").slideDown();
+				event.preventDefault();					
+			}else if( !$("#password_field").val() ){
+				$(".error").slideDown();
+				event.preventDefault();						
+			}else{
+			$(".error").slideUp();
+			$("#frm").attr("action", "/"+name);
+			$("#frm").submit();}					
+	});
+	$(".register").click(function(event){
+			var name=$(this).attr('class');
+			if( !$("#cpassword_field").val() ){
+				$(".error").slideDown();
+				event.preventDefault();						
+			}else{
+			$(".error").slideUp();
+			$("#frm").attr("action", "/"+name);
+			$("#frm").submit();}	
+	})
+
+});
+
+</script>
+
+
+<link rel="stylesheet" type="text/css" href="css/jquery.fancybox-1.3.4.css" media="screen" />
+
+
+</head>
+<body>
+ 
+ <!---------------  HEADER PART STARTS HERE  -------------------------------------->
+ <div id="main">
+ <div class="head row">
+  <div class="span12">
+  <h2>Sinatra Admin 2012 </h2>  
+  <div class="rtlinks">
+  <ul>
+	<li> <a href="#" id="old"><span class="black">Not Signed in.</span></a><span class="sprtr">|</span></li>
+	<li> <a href="#signup" id="new"><span class="grey">Sign in now</span></a></li>
+  </ul>
+  </div>
+  </div>
+ </div>
+ 
+  <!--------------  HEADER PART ENDS HERE  ----------------------->
+  
+ 
+  <!------------ FANCY BOX CONTENT --------------------->
+
+	
+	<div style="display: none;">
+	<div id="signup" style="width:400px;overflow:auto;">
+		
+		<h3> Sign in </h3>
+		<div id="signupform">
+		<p>You must have an account in order to login</p>
+		<div>	
+			<div class="error" style="color:red;display:none">
+			<p>Could not log you in with those credentials. Please try again.</p>
+			</div>
+			<div class="req" style="color:red;display:none">
+			<p>Please fill all the fields </p>
+			</div>				
+			<form action="#" method="post" id="frm">			
+			<div>
+				<label for="mail"  class="left"> Email</label>
+				<input name="email" type="text" id="email_field"/>	
+			</div>
+			<div class="clear"></div>
+			<div id="pwd">
+				<label for="password"  class="left"> Password</label>
+				<input name="password" type="password" id="password_field" />
+			</div>
+			
+			<div id="cpwd" style="display:none">
+				<p>				
+				<label for="cpassword"  class="left"> Confirm Password</label>
+				<input name="cpassword" type="password"  id="cpassword_field"/>
+				</p>	
+				<p>			
+				
+				</p>
+			</div>
+			
+			<p><a href="#frget" id="forget">Forget your password ?</a></p>
+			<p><a href="#" id="noac">Don't yet have an account ?</a></p>
+			
+			</div>	
+			</form>		
+			<div id="links">
+			<a href="#" class="signin">Sign in</a>
+			<a href="#" class="register">Sign up</a>
+			<a href="#" class="reset">Reset Password</a>
+			</div>
+		
+		</div>
+		</div>
+	</div>
+	</div>
+</div>
+</body>
+</html>

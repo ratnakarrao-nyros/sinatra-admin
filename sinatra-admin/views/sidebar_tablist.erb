@@ -1,0 +1,16 @@
+<div class="well sidebar-nav">
+		<ul class="nav nav-list tablist">
+		<li class="nav-header">Navigation</li>
+		<% @table_list.each  do |tab| %>
+		<% case tab 
+		when "histories","users","schema_migrations","sessions" then 
+			puts "these should not be printed..."
+		else %>
+		<li data-model='<%= tab%>'> 
+		<a href="/tables?main=active&name=tabbed_list&tab_name=<%=tab%>"  style="text-transform:capitalize;">
+		<%=tab%></a>
+		</li>
+		<%end%>		
+		<%end%>		
+		</ul>
+</div>

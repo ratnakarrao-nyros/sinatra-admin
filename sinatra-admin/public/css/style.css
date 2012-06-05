@@ -1,0 +1,130 @@
+@charset "utf-8";
+/* CSS Document */
+body{
+	margin:auto 0px;
+	text-align:left;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	line-height:1.8em;
+	font-size: 13px;
+}
+.head{
+	text-align:center;
+	
+}
+.head h2{
+	font-size:26px;
+}
+.rtlinks ul li {
+	display:inline;
+	list-style:none;
+}
+.black{
+	color:#000000;
+	font-size:12px;
+}
+.grey{
+	color:#666666;
+	font-size:12px;
+}
+.white{
+	color:#fff;
+	font-size:12px;
+	}
+.sprtr{
+	size:auto;
+	color:#000000;
+	margin-left:5px;
+}
+#signup h3{
+	color: #999999;
+    margin-bottom: 0.7em;
+}
+#signupform{
+	padding:10px;
+}
+.left{
+	float:left;
+}
+.clear{
+	clear:both;
+}
+label{
+	width:100px;
+}
+.cleft ul li{
+	list-style:none;
+}
+
+table {
+	margin-bottom:10px;
+	font-size:12px;
+	}
+.apptitle {
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    font-size: 20px;
+    font-weight: 200;
+    line-height: 1;
+    margin-left: -20px;
+    padding: 8px 20px 12px;
+}
+.apptitle:hover {
+	text-decoration:none;
+	color:#FFF;
+}
+.ht {
+	line-height:19px;	
+}
+ul {
+    list-style: disc outside none;
+}
+li {
+    display: inline-block;
+    line-height: 18px;
+}
+.tablist li{
+	display:block;
+	}
+
+.ii {
+    background-image: url("../img/icon-sprite.png");
+    background-position: -16px -32px !important;
+    
+}
+.i{
+   background-position: -48px -192px;
+   padding-left:16px;
+   margin-left: 40px;	
+	}
+.ui-icon{
+height: 16px;
+    width: 16px;
+background-repeat: no-repeat;
+    overflow: hidden;
+    text-indent: -99999px;	
+}
+ui-icon-circle-triangle-w {
+    background-position: -80px -192px;
+}
+.nn{
+
+background-image: url("../img/icon-sprite.png");
+background-position: 0 -32px !important;
+margin-left: 40px;
+}
+.ui-helper-clearfix:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+.datepicker {
+    border-radius: 4px 4px 4px 4px;
+    left: 480px;
+    margin-top: 450px;
+    padding: 4px;
+    top: 0;
+}
+

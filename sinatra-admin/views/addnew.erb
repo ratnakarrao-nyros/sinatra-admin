@@ -1,0 +1,61 @@
+
+ 	
+<script type="text/javascript">
+	$('document').ready(function(){
+	
+	$(".btn").click(function(){
+			var me=$(this)	
+			var $inputs = $('#new_ball .ball_color');
+			var check="true"
+
+			 $inputs.each(function() {
+       			  if(! $(this).val()){
+			$('input').css("border","1px solid red");
+			$('.alert').css("display","block");
+				check="false";								
+				}
+			else{
+			var id_name=me.attr("id");
+			$("#new_ball").attr("action","/insert?btnname="+id_name);		
+				check="true"
+			    }
+    				});
+		if (check=="true"){return true}else{return false;}
+			
+	});
+		
+		$('.close').click(function(){$('.alert').fadeOut('slow')})
+	});
+	
+</script>
+
+ 
+	<p class="alert alert-error" style="display:none">
+		<a class="close" href="#">×</a>
+		<%=@tab_name%> failed to be created
+	</p>
+  	
+	<form id="new_ball" class="form-horizontal" action='/insert' method='post'>
+		<fieldset>
+		<div id="ball_color_field" class="control-group string_type color_field ">
+		<% @column_arr[3..7].each do |val|%>	
+		<label class="control-label" for="ball_color" style="text-transform:capitalize"><%=val%></label>
+		<div class="controls">
+		<input class="ball_color" type="text" size="50" name="req_name[<%=val%>]" value="" maxlength="255">
+		<p class="help-block">Required. Length up to 255.</p>
+		</div>
+		<%end%>
+		<input type="hidden" name="tab_name" value="<%=@tab_name%>" >
+		</div>
+		</fieldset>
+		<div class="form-actions">
+		<button class="btn btn-primary save" type="submit" id="save">
+		<i class="icon-white icon-ok"></i>
+		Save
+		</button>
+		<span class="extra_buttons">
+		<button class="btn btn-info" type="submit" id="save_another"> Save and add another </button>
+		<button class="btn btn-info" type="submit" id="save_edit"> Save and edit </button>
+		</span>
+		</div>
+	</form>	
