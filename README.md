@@ -273,11 +273,15 @@ Db Migrations Using Rakefile
  <img style="max-width:100%;" title="dashboard view" alt="Dashboard view" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/show.png">
  </p>
  <p>
- <img style="max-width:100%;" title="dashboard view" alt="Dashboard view" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/addnew.png">
+ <img style="max-width:100%;" title="dashboard view" alt="Dashboard view" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/export.png">
+ </p>
+  <p>
+ <img style="max-width:100%;" title="dashboard view" alt="Dashboard view" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/delete.png">
  </p>
  <p>
  <img style="max-width:100%;" title="dashboard view" alt="Dashboard view" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/paginate.png">
  </p>
+ 
 
   
 
