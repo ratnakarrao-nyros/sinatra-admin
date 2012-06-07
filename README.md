@@ -258,28 +258,28 @@ Db Migrations Using Rakefile
  ================================
  
  <p>
- <img style="max-width:100%;" title="dashboard view" alt="Dashboard view" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/index.png">
+ <img style="max-width:100%;" title="index" alt="index" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/index.png">
  </p>
  <p>
  <img style="max-width:100%;" title="dashboard view" alt="Dashboard view" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/dashboard.png">
  </p>
  <p>
- <img style="max-width:100%;" title="dashboard view" alt="Dashboard view" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/list.png">
+ <img style="max-width:100%;" title="list" alt="list" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/list.png">
  </p>
  <p>
- <img style="max-width:100%;" title="dashboard view" alt="Dashboard view" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/addnew.png">
+ <img style="max-width:100%;" title="add new" alt="add new" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/addnew.png">
  </p>
  <p>
  <img style="max-width:100%;" title="dashboard view" alt="Dashboard view" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/show.png">
  </p>
  <p>
- <img style="max-width:100%;" title="dashboard view" alt="Dashboard view" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/export.png">
+ <img style="max-width:100%;" title="export" alt="export" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/export.png">
  </p>
   <p>
- <img style="max-width:100%;" title="dashboard view" alt="Dashboard view" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/delete.png">
+ <img style="max-width:100%;" title="delete" alt="delete view" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/delete.png">
  </p>
  <p>
- <img style="max-width:100%;" title="dashboard view" alt="Dashboard view" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/paginate.png">
+ <img style="max-width:100%;" title="paginate view" alt="paginate view" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/paginate.png">
  </p>
  
 
