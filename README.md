@@ -254,7 +254,12 @@ Db Migrations Using Rakefile
  
  
  
+ Screenshots
+ ================================
  
+ 
+ 
+ <img style="max-width:100%;" title="dashboard view" alt="Dashboard view" src="https://github.com/sferik/rails_admin/raw/master/screenshots/dashboard.png">
 
 
   
