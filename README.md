@@ -194,6 +194,7 @@ methods to establish the connection to Database
 3.signup.rb 	: It contains signup ,signin  process routes
 
 4.models.rb	: It contains all information about our Models
+
   
              to work with this app ...
              
@@ -250,6 +251,12 @@ Db Migrations Using Rakefile
 	   $ rake db:migrate
 
  Refer Rakefile for full information about rake
+ 
+ 
+ 
+ SCREEBSHOTS
+====================================
+/home/nyros/ratna/Sinatra Apps/github/sinatra-admin/screenshots/list.png
 
   
 
