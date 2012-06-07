@@ -257,11 +257,27 @@ Db Migrations Using Rakefile
  Screenshots
  ================================
  
- 
- 
- <img style="max-width:100%;" title="dashboard view" alt="Dashboard view" src="https://github.com/sferik/rails_admin/raw/master/screenshots/dashboard.png">
+ <p>
+ <img style="max-width:100%;" title="dashboard view" alt="Dashboard view" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/index.png">
+ </p>
+ <p>
  <img style="max-width:100%;" title="dashboard view" alt="Dashboard view" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/dashboard.png">
-
+ </p>
+ <p>
+ <img style="max-width:100%;" title="dashboard view" alt="Dashboard view" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/list.png">
+ </p>
+ <p>
+ <img style="max-width:100%;" title="dashboard view" alt="Dashboard view" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/addnew.png">
+ </p>
+ <p>
+ <img style="max-width:100%;" title="dashboard view" alt="Dashboard view" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/show.png">
+ </p>
+ <p>
+ <img style="max-width:100%;" title="dashboard view" alt="Dashboard view" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/addnew.png">
+ </p>
+ <p>
+ <img style="max-width:100%;" title="dashboard view" alt="Dashboard view" src="https://github.com/ratnakarrao-nyros/sinatra-admin/raw/master/screenshots/paginate.png">
+ </p>
 
   
 
