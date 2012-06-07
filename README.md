@@ -254,9 +254,8 @@ Db Migrations Using Rakefile
  
  
  
- SCREEBSHOTS
-====================================
-/home/nyros/ratna/Sinatra Apps/github/sinatra-admin/screenshots/list.png
+ 
+
 
   
 
